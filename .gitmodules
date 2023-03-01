@@ -1,0 +1,3 @@
+[submodule "redesign-insalan.fr"]
+	path = backend
+	url = git@github.com:InsaLan/redesign-insalan.fr.git
