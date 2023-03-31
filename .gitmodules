@@ -1,3 +1,6 @@
 [submodule "backend-insalan.fr"]
 	path = backend
 	url = git@github.com:InsaLan/backend-insalan.fr.git
+[submodule "frontend-insalan.fr"]
+	path = frontend
+	url = git@github.com:InsaLan/frontend-insalan.fr.git
