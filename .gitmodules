@@ -4,3 +4,5 @@
 [submodule "frontend-insalan.fr"]
 	path = frontend
 	url = git@github.com:InsaLan/frontend-insalan.fr.git
+[submodule "frontend"]
+	branch = main
