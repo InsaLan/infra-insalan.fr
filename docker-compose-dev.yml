@@ -37,14 +37,14 @@ services:
       - "80:80"
     volumes:
       - static:/usr/share/nginx/html/static:ro
-        #     - frontend:/usr/share/nginx/html/frontend
+      - frontend:/usr/share/nginx/html/frontend
       - ./nginx/templates:/etc/nginx/templates:ro
       - logs:/var/log
     networks:
       - backend
     depends_on:
       - backend
-        #- frontend
+      - frontend
 
   db:
     image: postgres
@@ -68,13 +68,18 @@ services:
     networks:
       - backend
 
-        #  frontend:
-        # build: ./frontend
-        #image: insalan/frontend
-        #volumes:
-        #- frontend:/dist
-        #networks:
-        #- backend
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    image: insalan/frontend
+    volumes:
+      - frontend:/dist
+      - ./frontend:/src
+    expose:
+      - "5173"
+    networks:
+      - backend
 
 networks:
   backend:
