@@ -1,0 +1,10 @@
+FROM nginx
+
+RUN apt-get update && apt-get install inotify-tools gettext-base -y
+
+COPY entrypoint-dev.sh .
+COPY nginxhotreload.sh .
+
+STOPSIGNAL SIGQUIT
+ENTRYPOINT [ "/entrypoint-dev.sh" ]
+CMD [ "nginx", "-g", "daemon off;" ]
