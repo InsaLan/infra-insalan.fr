@@ -1,3 +1,4 @@
+name: infra-insalanfr-dev
 services:
   backend:
     build: 
@@ -72,7 +73,7 @@ services:
     build: 
       context: ./frontend
       dockerfile: Dockerfile.dev
-    image: insalan/frontend
+    image: insalan/frontend-dev
     volumes:
       - frontend:/dist
       - ./frontend:/src
