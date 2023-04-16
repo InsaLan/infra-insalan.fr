@@ -6,7 +6,8 @@ server {
 	resolver_timeout 5s;
     
     location / {
-        proxy_pass http://frontend:5173;
+        set $frontend http://frontend:5173;
+        proxy_pass $frontend;
         proxy_set_header Host $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
