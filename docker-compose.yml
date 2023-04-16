@@ -43,6 +43,14 @@ services:
     networks:
       - backend
 
+  frontend:
+    build: ./frontend
+    image: insalan/frontend
+    volumes:
+      - frontend:/dist
+    networks:
+      - backend
+  
   nginx:
     image: nginx
     environment:
@@ -58,6 +66,8 @@ services:
       - logs:/var/log
 
       - static-preprod:/usr/share/nginx/html/static-preprod:ro
+      - ./nginx/.htpasswd:/etc/nginx/.htpasswd:ro
+      - frontend-preprod:/usr/share/nginx/html/frontend-preprod
     networks:
       - backend
       - backend-preprod
@@ -66,14 +76,6 @@ services:
       - frontend
       - backend-preprod
       - frontend-preprod
-
-  frontend:
-    build: ./frontend
-    image: insalan/frontend
-    volumes:
-      - frontend:/dist
-    networks:
-      - backend
   
   backend-preprod:
     build: 
@@ -87,18 +89,18 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
-      STATIC_ROOT: ${STATIC_ROOT}
+      STATIC_ROOT: /static-preprod/
     volumes:
-      - static-preprod:${STATIC_ROOT}
+      - static-preprod:/static-preprod/
       - ./backend:/app
     expose:
       - 8000
     networks:
       - backend-preprod
     links:
-      - db
+      - db-preprod
     depends_on:
-      db:
+      db-preprod:
         condition: service_healthy
 
   db-preprod:
@@ -129,6 +131,7 @@ services:
       dockerfile: Dockerfile.dev
     image: insalan/frontend-preprod
     volumes:
+      - frontend-preprod:/dist
       - ./frontend:/src
     expose:
       - "5173"
@@ -147,3 +150,4 @@ volumes:
 
   database-preprod:
   static-preprod:
+  frontend-preprod:
