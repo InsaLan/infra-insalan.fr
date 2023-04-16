@@ -1,1 +1,4 @@
 .env
+
+# ignore dev template file moved to nginx/templates
+nginx/template/dev-*.conf.template
