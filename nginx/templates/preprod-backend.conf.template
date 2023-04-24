@@ -30,9 +30,8 @@ server {
     }
 
     location ${STATIC_ROOT} {
+        rewrite ^${STATIC_ROOT}(.*)$ /$1 break;
 		root /usr/share/nginx/html/static-preprod/;
-        # remove static root
-        rewrite ^${STATIC_ROOT}(.*)$ $1 break;
 	}
 
     error_page 500 502 503 504  /50x.html;

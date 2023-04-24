@@ -1,0 +1,78 @@
+name: infra-insalanfr-preprod
+services:
+  backend-preprod:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    image: insalan/backend-preprod
+    environment:
+      WEBSITE_HOST: beta.${WEBSITE_HOST}
+      DB_HOST: db-preprod
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      STATIC_ROOT: ${STATIC_ROOT}
+    volumes:
+      - static-preprod:${STATIC_ROOT}
+      - ./backend:/app
+    expose:
+      - 8000
+    networks:
+      - backend-preprod
+    links:
+      - db-preprod
+    depends_on:
+      db-preprod:
+        condition: service_healthy
+
+  db-preprod:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_SUPERUSER}
+      POSTGRES_PASSWORD: ${DB_SUPERPASS}
+      INSALAN_USERNAME: ${DB_USER}
+      INSALAN_PASSWORD: ${DB_PASS}
+      INSALAN_DATABASE: ${DB_NAME}
+    volumes:
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+      - database-preprod:/var/lib/postgresql/data
+    expose:
+      - 5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    networks:
+      - backend-preprod
+
+  frontend-preprod:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    image: insalan/frontend-preprod
+    volumes:
+      - frontend-preprod:/dist
+      - ./frontend:/src
+    expose:
+      - "5173"
+    networks:
+      - backend-preprod
+
+networks:
+  backend-preprod:
+    external: true
+    name: infra-insalanfr_backend-preprod
+
+volumes:
+  static-preprod:
+    external: true
+    name: infra-insalanfr_static-preprod
+
+  database-preprod:
+
+  frontend-preprod:
+    external: true
+    name: infra-insalanfr_frontend-preprod
