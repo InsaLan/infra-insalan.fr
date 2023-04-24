@@ -43,3 +43,4 @@ server {
     error_log /var/log/nginx/api_error.log;
     access_log /var/log/nginx/api_access.log;
 }
+
