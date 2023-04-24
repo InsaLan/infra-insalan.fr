@@ -1,3 +1,4 @@
+name: infra-insalanfr
 services:
   backend:
     build: ./backend
@@ -66,7 +67,6 @@ services:
       - logs:/var/log
 
       - static-preprod:/usr/share/nginx/html/static-preprod:ro
-      - ./nginx/.htpasswd:/etc/nginx/.htpasswd:ro
       - frontend-preprod:/usr/share/nginx/html/frontend-preprod
     networks:
       - backend
@@ -74,69 +74,6 @@ services:
     depends_on:
       - backend
       - frontend
-      - backend-preprod
-      - frontend-preprod
-  
-  backend-preprod:
-    build: 
-      context: ./backend
-      dockerfile: Dockerfile.dev
-    image: insalan/backend-preprod
-    environment:
-      WEBSITE_HOST: beta.${WEBSITE_HOST}
-      DB_HOST: db-preprod
-      DB_PORT: 5432
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASS: ${DB_PASS}
-      STATIC_ROOT: /static-preprod/
-    volumes:
-      - static-preprod:/static-preprod/
-      - ./backend:/app
-    expose:
-      - 8000
-    networks:
-      - backend-preprod
-    links:
-      - db-preprod
-    depends_on:
-      db-preprod:
-        condition: service_healthy
-
-  db-preprod:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: ${DB_SUPERUSER}
-      POSTGRES_PASSWORD: ${DB_SUPERPASS}
-      INSALAN_USERNAME: ${DB_USER}
-      INSALAN_PASSWORD: ${DB_PASS}
-      INSALAN_DATABASE: ${DB_NAME}
-    volumes:
-      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
-      - database-preprod:/var/lib/postgresql/data
-    expose:
-      - 5432
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
-      interval: 1s
-      timeout: 5s
-      retries: 10
-    networks:
-      - backend-preprod
-
-  frontend-preprod:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile.dev
-    image: insalan/frontend-preprod
-    volumes:
-      - frontend-preprod:/dist
-      - ./frontend:/src
-    expose:
-      - "5173"
-    networks:
-      - backend-preprod
 
 networks:
   backend:
@@ -147,7 +84,6 @@ volumes:
   static:
   frontend:
   logs:
-
-  database-preprod:
+  
   static-preprod:
   frontend-preprod:
