@@ -13,6 +13,7 @@ services:
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
       STATIC_ROOT: ${STATIC_ROOT}
+      DEV: ${DEV}
     volumes:
       - static-preprod:${STATIC_ROOT}
       - ./backend:/app
