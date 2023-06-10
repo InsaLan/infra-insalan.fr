@@ -7,7 +7,7 @@ server {
     
     location ~ /v1${STATIC_ROOT} {
 		root /usr/share/nginx/html/static-preprod/;
-        rewrite ^${STATIC_ROOT}(.*)$ /$1 break;
+        rewrite ^/v1${STATIC_ROOT}(.*)$ /$1 break;
 	}
     
     location ~ /v1(.*) {
