@@ -43,6 +43,7 @@ services:
       - static:/usr/share/nginx/html/static:ro
       - frontend:/usr/share/nginx/html/frontend
       - ./nginx/templates:/etc/nginx/templates:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - logs:/var/log
     networks:
       - backend
@@ -80,6 +81,8 @@ services:
     environment:
       - API_URL=${FRONTEND_API_URL}
       - NODE_ENV=${FRONTEND_NODE_ENV}
+      - WEBSITE_HOST=${WEBSITE_HOST}
+      - PREFIX=dev
     volumes:
       - frontend:/dist
       - ./frontend:/src

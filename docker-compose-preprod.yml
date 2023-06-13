@@ -58,6 +58,8 @@ services:
     environment:
       - API_URL=${FRONTEND_API_URL}
       - NODE_ENV=${FRONTEND_NODE_ENV}
+      - WEBSITE_HOST=${WEBSITE_HOST}
+      - PREFIX=beta
     volumes:
       - frontend-preprod:/dist
       - ./frontend:/src
