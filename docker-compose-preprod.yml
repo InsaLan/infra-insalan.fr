@@ -12,10 +12,11 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
-      STATIC_ROOT: ${STATIC_ROOT}
+      STATIC_ROOT: ${BACKEND_STATIC_ROOT}
+      DJANGO_SECRET: ${BACKEND_DJANGO_SECRET}
       DEV: ${DEV}
     volumes:
-      - static-preprod:${STATIC_ROOT}
+      - static-preprod:${BACKEND_STATIC_ROOT}
       - ./backend:/app
     expose:
       - 8000
@@ -54,6 +55,9 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.dev
     image: insalan/frontend-preprod
+    environment:
+      - API_URL=${FRONTEND_API_URL}
+      - NODE_ENV=${FRONTEND_NODE_ENV}
     volumes:
       - frontend-preprod:/dist
       - ./frontend:/src

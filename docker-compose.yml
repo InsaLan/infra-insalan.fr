@@ -4,15 +4,17 @@ services:
     build: ./backend
     image: insalan/backend
     environment:
+      WEBSITE_HOST: ${WEBSITE_HOST}
       DB_HOST: db
       DB_PORT: 5432
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
-      STATIC_ROOT: ${STATIC_ROOT}
+      STATIC_ROOT: ${BACKEND_STATIC_ROOT}
+      DJANGO_SECRET: ${BACKEND_DJANGO_SECRET}
       DEV: ${DEV}
     volumes:
-      - static:${STATIC_ROOT}
+      - static:${BACKEND_STATIC_ROOT}
     expose:
       - 8000
     networks:
@@ -48,6 +50,9 @@ services:
   frontend:
     build: ./frontend
     image: insalan/frontend
+    environment:
+      - API_URL=${FRONTEND_API_URL}
+      - NODE_ENV=${FRONTEND_NODE_ENV}
     volumes:
       - frontend:/dist
     networks:
@@ -58,7 +63,7 @@ services:
     environment:
       - NGINX_HOST=${WEBSITE_HOST}
       - NGINX_PORT=80
-      - STATIC_ROOT=${STATIC_ROOT}
+      - STATIC_ROOT=${BACKEND_STATIC_ROOT}
     ports:
       - "80:80"
     volumes:
