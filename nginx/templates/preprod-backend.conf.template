@@ -20,11 +20,11 @@ server {
 
 		# Preflighted requests
 		if ($request_method = OPTIONS ) {
-		  add_header "Access-Control-Allow-Origin"  "http://localhost:5173";
+		  add_header "Access-Control-Allow-Origin"  "$http_origin";
 		  add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS, HEAD";
 		  add_header "Access-Control-Allow-Credentials" 'true';
 		  add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept";
-		  return 200;
+		  return 204;
 		}
     }
 
