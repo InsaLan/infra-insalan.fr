@@ -5,9 +5,14 @@ server {
 	resolver 127.0.0.11 valid=10s ipv6=off;
 	resolver_timeout 5s;
     
-    location / {
+    location ~ /v1${STATIC_ROOT} {
+		root /usr/share/nginx/html/static-preprod/;
+        rewrite ^/v1${STATIC_ROOT}(.*)$ /$1 break;
+	}
+    
+    location ~ /v1(.*) {
 		set $backendpreprod http://backend-preprod:8000;
-		proxy_pass $backendpreprod;
+		proxy_pass $backendpreprod/v1$1;
         index index.html index.htm;
 		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header Host $host;
@@ -15,11 +20,11 @@ server {
 
 		# Preflighted requests
 		if ($request_method = OPTIONS ) {
-		  add_header "Access-Control-Allow-Origin"  "http://localhost:5173";
+		  add_header "Access-Control-Allow-Origin"  "$http_origin";
 		  add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS, HEAD";
 		  add_header "Access-Control-Allow-Credentials" 'true';
 		  add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept";
-		  return 200;
+		  return 204;
 		}
     }
 
@@ -28,11 +33,6 @@ server {
         access_log off;
         log_not_found off;
     }
-
-    location ${STATIC_ROOT} {
-        rewrite ^${STATIC_ROOT}(.*)$ /$1 break;
-		root /usr/share/nginx/html/static-preprod/;
-	}
 
     error_page 500 502 503 504  /50x.html;
     location = /50x.html {
