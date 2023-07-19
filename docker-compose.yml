@@ -12,7 +12,7 @@ services:
       DB_PASS: ${DB_PASS}
       STATIC_ROOT: ${BACKEND_STATIC_ROOT}
       DJANGO_SECRET: ${BACKEND_DJANGO_SECRET}
-      DEV: ${DEV}
+      DEV: 0
     volumes:
       - static:${BACKEND_STATIC_ROOT}
     expose:
