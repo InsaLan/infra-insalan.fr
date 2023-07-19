@@ -17,6 +17,11 @@ Then to stop the containers:
 make stop-prod
 ```
 
+The website is available at the value of `WEBSITE_HOST` which should be `insalan.fr` or `localhost` depending on where it's running.
+It's API backend is available at `api.WEBSITE_HOST`.
+
+The "preprod" environment is available at `beta.WEBSITE_HOST` and it's own API at `api.beta.WEBSITE_HOST`.
+
 ## Running the dev environment
 
 Put 1 in the .env file for the `DEV` variable
@@ -31,3 +36,5 @@ To stop the dev environment :
 ```sh
 make stop-dev
 ```
+
+The dev frontend is available at `dev.WEBSITE_HOST` and it's API at `api.WEBSITE_HOST`.
