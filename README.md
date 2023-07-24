@@ -38,3 +38,12 @@ make stop-dev
 ```
 
 The dev frontend is available at `dev.WEBSITE_HOST` and it's API at `api.WEBSITE_HOST`.
+
+## Cleanup
+
+Docker can take a lot of disk space with all the images.
+You have a few options to clean it up:
+
+- `make clean-all` will remove all the containers and images
+- `make clean-custom` will remove all the custom images (the ones we build and not the ones we pull from docker hub)
+- `make sweep` will remove all the dangling images (deprecated images that are not used anymore)
