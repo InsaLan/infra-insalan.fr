@@ -20,6 +20,10 @@ run-dev:
 	@echo "Building and running the development stack"
 	docker compose -f docker-compose-dev.yml up --build -d
 
+run-dev-attached:
+	@echo "Building and running the development stack in attached mode"
+	docker compose -f docker-compose-dev.yml up --build
+
 stop-dev:
 	@echo "Stopping"
 	docker compose -f docker-compose-dev.yml down
