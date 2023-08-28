@@ -12,6 +12,11 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_SSL: ${MAIL_SSL}
+      MAIL_FROM: ${MAIL_FROM}
+      MAIL_PASS: ${MAIL_PASS}
       STATIC_ROOT: ${BACKEND_STATIC_ROOT}
       DJANGO_SECRET: ${BACKEND_DJANGO_SECRET}
       DEV: ${DEV}
