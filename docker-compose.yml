@@ -39,6 +39,8 @@ services:
       INSALAN_USERNAME: ${DB_USER}
       INSALAN_PASSWORD: ${DB_PASS}
       INSALAN_DATABASE: ${DB_NAME}
+      TZ: 'Europe/Paris'
+      PGTZ: 'Europe/Paris'
     volumes:
       - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
       - database:/var/lib/postgresql/data

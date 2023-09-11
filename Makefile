@@ -1,4 +1,11 @@
-@PHONY: build-prod run-prod stop-prod run-dev stop-dev clean-all clean-custom destroy-volumes logs-prod logs-preprod logs-dev sweep
+@PHONY: install build-prod run-prod stop-prod run-dev run-dev-attached stop-dev clean-all clean-custom destroy-volumes logs-prod logs-preprod logs-dev sweep
+
+install:
+	@echo "Initializing the project"
+	cp .env.dist .env
+	@echo "Choosing the branch to use for the backend and frontend"
+	cd backend && git checkout dev
+	cd frontend && git checkout main
 
 build-prod:
 	@echo "Building production images"
@@ -60,4 +67,4 @@ logs-dev:
 
 sweep:
 	@echo "Removing all unused images"
-	#docker rmi $(docker images -f "dangling=true" -q)
+	docker rmi $$(docker images -f "dangling=true" -q)
