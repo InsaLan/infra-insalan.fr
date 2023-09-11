@@ -6,8 +6,12 @@ This repository is here to hold all insalan.fr infrastructure.
 
 ```sh
 git clone git@github.com:InsaLan/infra-insalan.fr.git --recurse-submodules
-cp .env.dist .env # edit your .env with your local settings then:
-chmod 0600 .env
+make install
+```
+
+Before running the stack, fill in the django secret key in the .env file
+
+```sh
 make build-prod
 make run-prod
 ```
@@ -29,6 +33,12 @@ Run the following command :
 ```sh
 make run-dev
 ```
+To simply run the dev environment
+
+If you want to see the logs in real time, you should instead run :
+```sh
+make run-dev-attached
+```
 Then the dev frontend is available at dev.localhost
 There is hotreload for the front (with vite), back (with django runserver), and nginx (thanks to a custom script)
 
@@ -47,3 +57,10 @@ You have a few options to clean it up:
 - `make clean-all` will remove all the containers and images
 - `make clean-custom` will remove all the custom images (the ones we build and not the ones we pull from docker hub)
 - `make sweep` will remove all the dangling images (deprecated images that are not used anymore)
+- `make destroy-volumes` will remove all the dev and preprod volumes (the data stored by the containers)
+
+## Additionnal commands
+There are make targets to see the logs of each stack :
+- `make logs-prod`
+- `make logs-preprod`
+- `make logs-dev`
