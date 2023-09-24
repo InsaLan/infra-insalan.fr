@@ -37,7 +37,7 @@ services:
     build:
       context: ./nginx
       dockerfile: Dockerfile.dev
-    image: nginx-dev
+    image: insalan/nginx-dev
     environment:
       - NGINX_HOST=${WEBSITE_HOST}
       - NGINX_PORT=80
@@ -84,10 +84,9 @@ services:
       dockerfile: Dockerfile.dev
     image: insalan/frontend-dev
     environment:
-      - API_URL=${FRONTEND_API_URL}
+      - API_URL=api.${WEBSITE_HOST}
       - NODE_ENV=${FRONTEND_NODE_ENV}
-      - VITE_WEBSITE_HOST=${WEBSITE_HOST}
-      - PREFIX=dev
+      - WEBSITE_HOST=dev.${WEBSITE_HOST}
     volumes:
       - frontend:/dist
       - ./frontend:/src
