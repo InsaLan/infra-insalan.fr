@@ -56,9 +56,9 @@ services:
     build: ./frontend
     image: insalan/frontend
     environment:
-      - API_URL=api.${WEBSITE_HOST}
+      - VITE_API_URL=api.${WEBSITE_HOST}
       - NODE_ENV=${FRONTEND_NODE_ENV}
-      - WEBSITE_HOST=${WEBSITE_HOST}
+      - VITE_WEBSITE_HOST=${WEBSITE_HOST}
     volumes:
       - frontend:/dist
     networks:

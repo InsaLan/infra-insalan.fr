@@ -9,15 +9,15 @@ run-prod:
 	docker compose -f docker-compose.yml up -d
 
 stop-prod:
-	@echo "Stopping"
-	@# Stopping the preprod stack first because it depends on the prod stack
-	docker compose -f docker-compose-preprod.yml down
+	@echo "Stopping the production stack"
 	docker compose -f docker-compose.yml down
 
 run-preprod:
-	docker compose -f docker-compose-preprod.yml up -d
+	@echo "Running the pre-production stack"
+	docker compose -f docker-compose-preprod.yml up --build -d
 
 stop-preprod:
+	@echo "Stopping the pre-production stack" 
 	docker compose -f docker-compose-preprod.yml down
 
 run-dev:
@@ -29,7 +29,7 @@ run-dev-attached:
 	docker compose -f docker-compose-dev.yml up --build
 
 stop-dev:
-	@echo "Stopping"
+	@echo "Stopping the development stack"
 	docker compose -f docker-compose-dev.yml down
 
 clean-all:
