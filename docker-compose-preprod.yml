@@ -83,7 +83,7 @@ services:
     image: insalan/nginx-preprod
     environment:
       - NGINX_HOST=${WEBSITE_HOST}
-      - NGINX_PORT=${PREPROD_NGINX_PORT}
+      - NGINX_PORT=80
       - STATIC_ROOT=${BACKEND_STATIC_ROOT}
     ports:
       - "${PREPROD_NGINX_PORT}:80"
