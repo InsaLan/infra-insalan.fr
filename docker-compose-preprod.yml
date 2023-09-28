@@ -1,13 +1,13 @@
 name: infra-insalanfr-preprod
 services:
-  backend-preprod:
+  backend:
     build: 
       context: ./backend
       dockerfile: Dockerfile.dev
     image: insalan/backend-preprod
     environment:
       WEBSITE_HOST: beta.${WEBSITE_HOST}
-      DB_HOST: db-preprod
+      DB_HOST: db
       DB_PORT: 5432
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
@@ -26,14 +26,14 @@ services:
     expose:
       - 8000
     networks:
-      - backend-preprod
+      - backend
     links:
-      - db-preprod
+      - db
     depends_on:
-      db-preprod:
+      db:
         condition: service_healthy
 
-  db-preprod:
+  db:
     image: postgres
     restart: always
     environment:
@@ -55,38 +55,53 @@ services:
       timeout: 5s
       retries: 10
     networks:
-      - backend-preprod
+      - backend
 
-  frontend-preprod:
+  frontend:
     build: 
       context: ./frontend
       dockerfile: Dockerfile.dev
     image: insalan/frontend-preprod
     environment:
-      - API_URL=${FRONTEND_API_URL}
+      - VITE_API_URL=api.beta.${WEBSITE_HOST}
       - NODE_ENV=${FRONTEND_NODE_ENV}
-      - VITE_WEBSITE_HOST=${WEBSITE_HOST}
-      - PREFIX=beta
+      - VITE_WEBSITE_HOST=beta.${WEBSITE_HOST}
     volumes:
       - frontend-preprod:/dist
       - ./frontend:/src
     expose:
       - "5173"
     networks:
-      - backend-preprod
+      - backend
+    
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    image: insalan/nginx-preprod
+    environment:
+      - NGINX_HOST=${WEBSITE_HOST}
+      - NGINX_PORT=${PREPROD_NGINX_PORT}
+      - STATIC_ROOT=${BACKEND_STATIC_ROOT}
+    ports:
+      - "${PREPROD_NGINX_PORT}:80"
+    volumes:
+      - static-preprod:/usr/share/nginx/html/static:ro
+      - frontend-preprod:/usr/share/nginx/html/frontend
+      - ./nginx/templates:/etc/nginx/templates:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - logs-preprod:/var/log
+    networks:
+      - backend
+    depends_on:
+      - backend
+      - frontend
 
 networks:
-  backend-preprod:
-    external: true
-    name: infra-insalanfr_backend-preprod
+  backend:
 
 volumes:
   static-preprod:
-    external: true
-    name: infra-insalanfr_static-preprod
-
   database-preprod:
-
   frontend-preprod:
-    external: true
-    name: infra-insalanfr_frontend-preprod
+  logs-preprod:

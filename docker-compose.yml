@@ -58,7 +58,7 @@ services:
     build: ./frontend
     image: insalan/frontend
     environment:
-      - API_URL=${FRONTEND_API_URL}
+      - VITE_API_URL=api.${WEBSITE_HOST}
       - NODE_ENV=${FRONTEND_NODE_ENV}
       - VITE_WEBSITE_HOST=${WEBSITE_HOST}
     volumes:
@@ -70,10 +70,10 @@ services:
     image: nginx
     environment:
       - NGINX_HOST=${WEBSITE_HOST}
-      - NGINX_PORT=80
+      - NGINX_PORT=${PROD_NGINX_PORT}
       - STATIC_ROOT=${BACKEND_STATIC_ROOT}
     ports:
-      - "80:80"
+      - "${PROD_NGINX_PORT}:80"
     volumes:
       - static:/usr/share/nginx/html/static:ro
       - frontend:/usr/share/nginx/html/frontend
@@ -81,24 +81,17 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - logs:/var/log
 
-      - static-preprod:/usr/share/nginx/html/static-preprod:ro
-      - frontend-preprod:/usr/share/nginx/html/frontend-preprod
     networks:
       - backend
-      - backend-preprod
     depends_on:
       - backend
       - frontend
 
 networks:
   backend:
-  backend-preprod:
 
 volumes:
   database:
   static:
   frontend:
   logs:
-  
-  static-preprod:
-  frontend-preprod:
