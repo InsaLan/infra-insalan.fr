@@ -59,6 +59,18 @@ services:
     networks:
       - backend
 
+  mongo-db:
+    image: mongo
+    restart: always
+    environment:
+        MONGO_INITDB_ROOT_USERNAME: ${DB_SUPERUSER}
+        MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
+    expose:
+      - 5433
+    networks:
+      - backend
+
+
   frontend:
     build: 
       context: ./frontend
