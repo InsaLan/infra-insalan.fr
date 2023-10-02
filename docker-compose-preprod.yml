@@ -5,6 +5,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile.dev
     image: insalan/backend-preprod
+    restart: unless-stopped
     environment:
       WEBSITE_HOST: beta.${WEBSITE_HOST}
       DB_HOST: db
@@ -37,7 +38,7 @@ services:
 
   db:
     image: postgres
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${DB_SUPERUSER}
       POSTGRES_PASSWORD: ${DB_SUPERPASS}
@@ -61,7 +62,7 @@ services:
 
   mongo-db:
     image: mongo
-    restart: always
+    restart: unless-stopped
     environment:
         MONGO_INITDB_ROOT_USERNAME: ${DB_SUPERUSER}
         MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
@@ -76,6 +77,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.dev
     image: insalan/frontend-preprod
+    restart: unless-stopped
     environment:
       - VITE_API_URL=api.beta.${WEBSITE_HOST}
       - NODE_ENV=${FRONTEND_NODE_ENV}
@@ -93,6 +95,7 @@ services:
       context: ./nginx
       dockerfile: Dockerfile.dev
     image: insalan/nginx-preprod
+    restart: unless-stopped
     environment:
       - NGINX_HOST=${WEBSITE_HOST}
       - NGINX_PORT=80

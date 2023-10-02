@@ -3,6 +3,7 @@ services:
   backend:
     build: ./backend
     image: insalan/backend
+    restart: unless-stopped
     environment:
       WEBSITE_HOST: ${WEBSITE_HOST}
       DB_HOST: db
@@ -34,7 +35,7 @@ services:
 
   db:
     image: postgres
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${DB_SUPERUSER}
       POSTGRES_PASSWORD: ${DB_SUPERPASS}
@@ -59,6 +60,7 @@ services:
   frontend:
     build: ./frontend
     image: insalan/frontend
+    restart: unless-stopped
     environment:
       - VITE_API_URL=api.${WEBSITE_HOST}
       - NODE_ENV=${FRONTEND_NODE_ENV}
@@ -70,6 +72,7 @@ services:
   
   nginx:
     image: nginx
+    restart: unless-stopped
     environment:
       - NGINX_HOST=${WEBSITE_HOST}
       - NGINX_PORT=80
