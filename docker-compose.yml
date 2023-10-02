@@ -82,7 +82,7 @@ services:
     volumes:
       - static:/usr/share/nginx/html/static:ro
       - frontend:/usr/share/nginx/html/frontend
-      - ./nginx/templates:/etc/nginx/templates:ro
+      - ./nginx/templates/prod:/etc/nginx/templates:ro
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - logs:/var/log
 

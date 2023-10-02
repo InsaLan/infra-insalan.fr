@@ -1,6 +1,6 @@
 server {
     listen ${NGINX_PORT};
-    server_name beta.${NGINX_HOST};
+    server_name ${NGINX_HOST};
 
     resolver 127.0.0.11 valid=10s ipv6=off;
 	resolver_timeout 5s;
