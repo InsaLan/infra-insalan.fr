@@ -1,7 +1,7 @@
 name: infra-insalanfr-dev
 services:
   backend:
-    build: 
+    build:
       context: ./backend
       dockerfile: Dockerfile.dev
     image: insalan/backend-dev
@@ -21,7 +21,7 @@ services:
       SUPERUSER_USER: ${SUPERUSER_USER}
       SUPERUSER_PASS: ${SUPERUSER_PASS}
       STATIC_ROOT: ${BACKEND_STATIC_ROOT}
-     DJANGO_SECRET: ${BACKEND_DJANGO_SECRET}
+      DJANGO_SECRET: ${BACKEND_DJANGO_SECRET}
       DEV: 1
     volumes:
       - static-dev:${BACKEND_STATIC_ROOT}
