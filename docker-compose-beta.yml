@@ -24,7 +24,7 @@ services:
       DJANGO_SECRET: ${BACKEND_DJANGO_SECRET}
       DEV: ${DEV}
     volumes:
-      - ./volumes/beta/backend/static:${BACKEND_STATIC_ROOT}
+      - ./volumes/beta/backend/static:/app/v1${BACKEND_STATIC_ROOT}
       - ./backend:/app
     expose:
       - 8000
@@ -102,7 +102,7 @@ services:
     ports:
       - "${PREPROD_NGINX_PORT}:80"
     volumes:
-      - ./volumes/beta/frontend:/usr/share/nginx/html/frontend
+      - ./volumes/beta/backend/static:/usr/share/nginx/html/static:ro
       - ./nginx/templates/beta:/etc/nginx/templates:ro
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./volumes/beta/nginx/logs:/var/log/nginx

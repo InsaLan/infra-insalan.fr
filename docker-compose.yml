@@ -22,7 +22,7 @@ services:
       DJANGO_SECRET: ${BACKEND_DJANGO_SECRET}
       DEV: 0
     volumes:
-      - ./volumes/prod/backend/static:${BACKEND_STATIC_ROOT}
+      - ./volumes/prod/backend/static:/app/v1${BACKEND_STATIC_ROOT}
     expose:
       - 8000
     networks:
