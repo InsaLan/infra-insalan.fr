@@ -1,4 +1,4 @@
-@PHONY: build-prod run-prod stop-prod run-dev stop-dev clean-all clean-custom sweep
+@PHONY: build-prod run-prod stop-prod clean-all clean-custom
 
 build-prod:
 	@echo "Building production images"
@@ -12,38 +12,20 @@ stop-prod:
 	@echo "Stopping the production stack"
 	docker compose -f docker-compose.yml down
 
-run-preprod:
+run-beta:
 	@echo "Running the pre-production stack"
-	docker compose -f docker-compose-preprod.yml up --build -d
+	docker compose -f docker-compose-beta.yml up --build -d
 
-stop-preprod:
+stop-beta:
 	@echo "Stopping the pre-production stack" 
-	docker compose -f docker-compose-preprod.yml down
-
-run-dev:
-	@echo "Building and running the development stack"
-	docker compose -f docker-compose-dev.yml up --build -d
-
-run-dev-attached:
-	@echo "Building and running the development stack in attached mode"
-	docker compose -f docker-compose-dev.yml up --build
-
-stop-dev:
-	@echo "Stopping the development stack"
-	docker compose -f docker-compose-dev.yml down
+	docker compose -f docker-compose-beta.yml down
 
 clean-all:
 	@echo "Removing all images related to the project"
 	docker compose -f docker-compose.yml down --rmi all
-	docker compose -f docker-compose-preprod.yml down --rmi all
-	docker compose -f docker-compose-dev.yml down --rmi all
+	docker compose -f docker-compose-beta.yml down --rmi all
 
 clean-custom:
 	@echo "Removing all custom images"
 	docker compose -f docker-compose.yml down --rmi local
-	docker compose -f docker-compose-preprod.yml down --rmi local
-	docker compose -f docker-compose-dev.yml down --rmi local
-
-sweep:
-	@echo "Removing all unused images"
-	#docker rmi $(docker images -f "dangling=true" -q)
+	docker compose -f docker-compose-beta.yml down --rmi local

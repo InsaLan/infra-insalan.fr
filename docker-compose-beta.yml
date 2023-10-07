@@ -79,7 +79,7 @@ services:
     image: insalan/frontend-preprod
     restart: unless-stopped
     environment:
-      - VITE_API_URL=api.beta.${WEBSITE_HOST}
+      - VITE_API_URL=${PROTOCOL}://api.beta.${WEBSITE_HOST}/v${API_VERSION}
       - NODE_ENV=${FRONTEND_NODE_ENV}
       - VITE_WEBSITE_HOST=beta.${WEBSITE_HOST}
     volumes:
@@ -97,7 +97,7 @@ services:
     image: insalan/nginx-preprod
     restart: unless-stopped
     environment:
-      - NGINX_HOST=${WEBSITE_HOST}
+      - NGINX_HOST=beta.${WEBSITE_HOST}
       - NGINX_PORT=80
       - STATIC_ROOT=${BACKEND_STATIC_ROOT}
     ports:
