@@ -1,10 +1,10 @@
-name: infra-insalanfr-preprod
+name: infra-insalanfr-beta
 services:
   backend:
     build: 
       context: ./backend
       dockerfile: Dockerfile.dev
-    image: insalan/backend-preprod
+    image: insalan/backend-beta
     restart: unless-stopped
     environment:
       WEBSITE_HOST: beta.${WEBSITE_HOST}
@@ -24,7 +24,7 @@ services:
       DJANGO_SECRET: ${BACKEND_DJANGO_SECRET}
       DEV: ${DEV}
     volumes:
-      - static-preprod:${BACKEND_STATIC_ROOT}
+      - ./volumes/beta/backend/static:${BACKEND_STATIC_ROOT}
       - ./backend:/app
     expose:
       - 8000
@@ -49,7 +49,7 @@ services:
       PGTZ: Europe/Paris
     volumes:
       - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
-      - database-preprod:/var/lib/postgresql/data
+      - ./volumes/beta/postgres/data:/var/lib/postgresql/data
     expose:
       - 5432
     healthcheck:
@@ -76,14 +76,13 @@ services:
     build: 
       context: ./frontend
       dockerfile: Dockerfile.dev
-    image: insalan/frontend-preprod
+    image: insalan/frontend-beta
     restart: unless-stopped
     environment:
       - VITE_API_URL=${PROTOCOL}://api.beta.${WEBSITE_HOST}/v${API_VERSION}
       - NODE_ENV=${FRONTEND_NODE_ENV}
       - VITE_WEBSITE_HOST=beta.${WEBSITE_HOST}
     volumes:
-      - frontend-preprod:/dist
       - ./frontend:/src
     expose:
       - "5173"
@@ -94,7 +93,7 @@ services:
     build:
       context: ./nginx
       dockerfile: Dockerfile.dev
-    image: insalan/nginx-preprod
+    image: insalan/nginx-beta
     restart: unless-stopped
     environment:
       - NGINX_HOST=beta.${WEBSITE_HOST}
@@ -103,11 +102,10 @@ services:
     ports:
       - "${PREPROD_NGINX_PORT}:80"
     volumes:
-      - static-preprod:/usr/share/nginx/html/static:ro
-      - frontend-preprod:/usr/share/nginx/html/frontend
-      - ./nginx/templates/preprod:/etc/nginx/templates:ro
+      - ./volumes/beta/frontend:/usr/share/nginx/html/frontend
+      - ./nginx/templates/beta:/etc/nginx/templates:ro
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - logs-preprod:/var/log
+      - ./volumes/beta/nginx/logs:/var/log/nginx
     networks:
       - backend
     depends_on:
@@ -116,9 +114,3 @@ services:
 
 networks:
   backend:
-
-volumes:
-  static-preprod:
-  database-preprod:
-  frontend-preprod:
-  logs-preprod:
