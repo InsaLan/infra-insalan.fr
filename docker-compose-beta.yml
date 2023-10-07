@@ -24,7 +24,7 @@ services:
       DJANGO_SECRET: ${BACKEND_DJANGO_SECRET}
       DEV: ${DEV}
     volumes:
-      - ./volumes/beta/backend/static:/app/v1${BACKEND_STATIC_ROOT}
+      - ./volumes/beta/backend/static:${BACKEND_STATIC_ROOT}
       - ./backend:/app
     expose:
       - 8000
