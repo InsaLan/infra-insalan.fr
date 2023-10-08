@@ -5,9 +5,14 @@ server {
 	resolver 127.0.0.11 valid=10s ipv6=off;
 	resolver_timeout 5s;
     
-    location ~ /v1${STATIC_ROOT} {
+    location ~ /v1/${STATIC_ROOT} {
 		root /usr/share/nginx/html/static/;
-        rewrite ^/v1${STATIC_ROOT}(.*)$ /$1 break;
+        rewrite ^/v1/${STATIC_ROOT}(.*)$ /$1 break;
+	}
+
+    location ~ /v1/${MEDIA_ROOT} {
+		root /usr/share/nginx/html/media/;
+        rewrite ^/v1/${MEDIA_ROOT}(.*)$ /$1 break;
 	}
     
     location ~ /v1(.*) {

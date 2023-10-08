@@ -19,10 +19,11 @@ services:
       SUPERUSER_USER: ${SUPERUSER_USER}
       SUPERUSER_PASS: ${SUPERUSER_PASS}
       STATIC_ROOT: ${BACKEND_STATIC_ROOT}
+      STATIC_MEDIA: ${BACKEND_STATIC_MEDIA}
       DJANGO_SECRET: ${BACKEND_DJANGO_SECRET}
       DEV: 0
     volumes:
-      - ./volumes/prod/backend/static:/app/v1${BACKEND_STATIC_ROOT}
+      - ./volumes/prod/backend:/app/v1
     expose:
       - 8000
     networks:
@@ -77,10 +78,11 @@ services:
       - NGINX_HOST=${WEBSITE_HOST}
       - NGINX_PORT=80
       - STATIC_ROOT=${BACKEND_STATIC_ROOT}
+      - STATIC_MEDIA=${BACKEND_STATIC_MEDIA}
     ports:
       - "${PROD_NGINX_PORT}:80"
     volumes:
-      - ./volumes/prod/backend/static:/usr/share/nginx/html/static:ro
+      - ./volumes/beta/backend:/usr/share/nginx/html:ro
       - ./volumes/prod/frontend:/usr/share/nginx/html/frontend
       - ./nginx/templates/prod:/etc/nginx/templates:ro
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
