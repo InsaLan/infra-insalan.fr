@@ -8,11 +8,13 @@ services:
     restart: unless-stopped
     environment:
       WEBSITE_HOST: beta.${WEBSITE_HOST}
+      HTTP_PROTOCOL: ${PROTOCOL}
       DB_HOST: db
       DB_PORT: 5432
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
+      NGINX_PORT: ${PREPROD_NGINX_PORT}
       MAIL_HOST: ${MAIL_HOST}
       MAIL_PORT: ${MAIL_PORT}
       MAIL_SSL: ${MAIL_SSL}
