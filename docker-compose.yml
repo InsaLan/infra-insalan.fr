@@ -70,6 +70,7 @@ services:
       - VITE_API_URL=api.${WEBSITE_HOST}
       - NODE_ENV=${FRONTEND_NODE_ENV}
       - VITE_WEBSITE_HOST=${WEBSITE_HOST}
+      - VITE_PLACEHOLDER=${PLACEHOLDER}
     volumes:
       - ./volumes/prod/frontend:/dist
     networks:

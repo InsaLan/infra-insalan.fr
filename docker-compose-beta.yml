@@ -87,6 +87,7 @@ services:
       - VITE_API_URL=${PROTOCOL}://api.beta.${WEBSITE_HOST}/v${API_VERSION}
       - NODE_ENV=${FRONTEND_NODE_ENV}
       - VITE_WEBSITE_HOST=beta.${WEBSITE_HOST}
+      - VITE_PLACEHOLDER=${PLACEHOLDER}
     volumes:
       - ./frontend:/src
     expose:
