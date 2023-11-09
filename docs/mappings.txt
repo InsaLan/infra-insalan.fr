@@ -1,2 +1,2 @@
-https://github.com/InsaLan/backend-insalan.fr/releases/latest/download/manuel.tar.gz /tmp/manuel
-
+https://github.com/InsaLan/backend-insalan.fr/releases/latest/download/manuel.tar.gz /srv/http/docs/backend
+https://github.com/InsaLan/manuel-utilisateur-site-web/releases/latest/download/manuel.tar.gz /srv/http/docs/non-technique
