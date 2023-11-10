@@ -17,9 +17,20 @@ function deploy_doc {
 
 	TO_DEPLOY=$(tar -tzf "$TAR_GZ" | head -1 | cut -f1 -d"/")
 
+	exit
+
 	tar -xzf "$TAR_GZ" | head -1 | cut -f1 -d"/"
 
+	# Cleanup temporary folder
+	if [ -d "$TO_DEPLOY" ]; then
+		rm -rf "$TO_DEPLOY"
+	fi
+
+	# Backup current version and delete previous backup (if any)
 	if [ -d "$DST_DIR" ]; then
+		if [ -d "$DST_DIR.old" ]; then
+			rm -rf "$DST_DIR.old"
+		fi
 		mv "$DST_DIR" "$DST_DIR.old"
 	fi
 
