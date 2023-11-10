@@ -83,7 +83,6 @@ services:
   frontend:
     build: ./frontend
     image: insalan/frontend
-    restart: unless-stopped
     environment:
       - VITE_API_URL=${PROTOCOL}://api.${WEBSITE_HOST}/v${API_VERSION}
       - NODE_ENV=${FRONTEND_NODE_ENV}
@@ -104,7 +103,7 @@ services:
     ports:
       - "${PROD_NGINX_PORT}:80"
     volumes:
-      - ./volumes/beta/backend:/usr/share/nginx/html
+      - ./volumes/prod/backend:/usr/share/nginx/html
       - ./volumes/prod/frontend:/usr/share/nginx/html/frontend
       - ./nginx/templates/prod:/etc/nginx/templates:ro
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
