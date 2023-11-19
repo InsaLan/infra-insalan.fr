@@ -1,6 +1,6 @@
 server {
-    listen ${NGINX_PORT};
-    server_name api.${NGINX_HOST};
+	listen ${NGINX_PORT};
+	server_name api.${NGINX_HOST};
 
 	resolver 127.0.0.11 valid=10s ipv6=off;
 	resolver_timeout 5s;
@@ -15,38 +15,39 @@ server {
 		rewrite ^/v1/(.*)$ /$1 break;
 	}
 
-    location ~ /v1(.*) {
+	location ~ /v1(.*) {
 		set $backend http://backend:8000;
 		proxy_pass $backend/v1$1$is_args$args;
-        index index.html index.htm;
+		index index.html index.htm;
 		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
+		proxy_set_header X-Forwarded-Proto https;
+		proxy_set_header Host $host;
 		proxy_redirect off;
 
 		# Preflighted requests
 		if ($request_method = OPTIONS ) {
-		  add_header "Access-Control-Allow-Origin"  "$http_origin";
-		  add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS, HEAD, PATCH";
-		  add_header "Access-Control-Allow-Credentials" 'true';
-		  add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept, x-csrftoken";
-		  return 204;
+			add_header "Access-Control-Allow-Origin"  "$http_origin";
+			add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS, HEAD, PATCH";
+			add_header "Access-Control-Allow-Credentials" 'true';
+			add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept, x-csrftoken";
+			return 204;
 		}
-    }
+	}
 
 	# In doubt, exclude dotfiles
-    location ~ /\. {
-        deny all;
-        access_log off;
-        log_not_found off;
-    }
+	location ~ /\. {
+		deny all;
+		access_log off;
+		log_not_found off;
+	}
 
-    error_page 500 502 503 504  /50x.html;
-    location = /50x.html {
-        root /usr/share/nginx/html; 
-    }
+	error_page 500 502 503 504  /50x.html;
+	location = /50x.html {
+		root /usr/share/nginx/html; 
+	}
 
 	# Setup logs
-    error_log /var/log/nginx/api_error.log;
-    access_log /var/log/nginx/api_access.log;
+	error_log /var/log/nginx/api_error.log;
+	access_log /var/log/nginx/api_access.log;
 }
 
