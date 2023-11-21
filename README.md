@@ -2,6 +2,11 @@
 
 This repository is here to hold all insalan.fr infrastructure.
 
+# Contributing
+
+Please read carefully[the CONTRIBUTING.md file](CONTRIBUTING.md) before any
+contribution.
+
 ## Installing and running insalan.fr in local
 
 ```sh
