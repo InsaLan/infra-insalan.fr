@@ -76,6 +76,9 @@ services:
       - 5433
     networks:
       - backend
+    command: 
+    - '--logpath'
+    - '/dev/null'
 
   frontend:
     build: ./frontend
