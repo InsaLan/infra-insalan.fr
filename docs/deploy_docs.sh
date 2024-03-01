@@ -11,20 +11,15 @@ function deploy_doc {
 	SRC_URL=$1
 	DST_DIR=$2
 
+	echo "Starting deploiement for $2" >&2
+
 	TAR_GZ=${SRC_URL##*/}
 
 	curl -sL "$SRC_URL" --output "$TAR_GZ"
 
 	TO_DEPLOY=$(tar -tzf "$TAR_GZ" | head -1 | cut -f1 -d"/")
 
-	exit
-
 	tar -xzf "$TAR_GZ" | head -1 | cut -f1 -d"/"
-
-	# Cleanup temporary folder
-	if [ -d "$TO_DEPLOY" ]; then
-		rm -rf "$TO_DEPLOY"
-	fi
 
 	# Backup current version and delete previous backup (if any)
 	if [ -d "$DST_DIR" ]; then
