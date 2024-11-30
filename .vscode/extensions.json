@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "usernamehw.errorlens",
+        "streetsidesoftware.code-spell-checker",
+        "streetsidesoftware.code-spell-checker-french",
+        "dbaeumer.vscode-eslint",
+        "ms-python.pylint",
+        "ms-python.python",
+        "Vue.volar",
+    ]
+}
