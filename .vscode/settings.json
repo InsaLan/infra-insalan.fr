@@ -15,8 +15,4 @@
         "css",
     ],
     "python.analysis.typeCheckingMode": "off",
-    "pylint.args": [
-        "--load-plugins=pylint_django",
-        "--django-settings-module=insalan.settings",
-    ],
 }
