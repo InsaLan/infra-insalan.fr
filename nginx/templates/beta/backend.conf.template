@@ -4,17 +4,23 @@ server {
 
 	resolver 127.0.0.11 valid=10s ipv6=off;
 	resolver_timeout 5s;
-		
+
 	location ~ /v1/${STATIC_ROOT} {
 		root /usr/share/nginx/html/static/;
 		rewrite ^/v1/${STATIC_ROOT}(.*)$ /$1 break;
 	}
 
 	location ~ /v1/${MEDIA_ROOT} {
+		# Add CORS headers
+		add_header "Access-Control-Allow-Origin"  "$http_origin";
+		add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS, HEAD, PATCH, DELETE";
+		add_header "Access-Control-Allow-Credentials" 'true';
+		add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept, x-csrftoken";
+
 		root /usr/share/nginx/html/media/;
 		rewrite ^/v1/${MEDIA_ROOT}(.*)$ /$1 break;
 	}
-		
+
 	location ~ /v1(.*) {
 		set $backend http://backend:8000;
 		proxy_pass $backend/v1$1$is_args$args;
@@ -41,7 +47,7 @@ server {
 
 	error_page 500 502 503 504  /50x.html;
 	location = /50x.html {
-		root /usr/share/nginx/html; 
+		root /usr/share/nginx/html;
 	}
 
 	# Setup logs
