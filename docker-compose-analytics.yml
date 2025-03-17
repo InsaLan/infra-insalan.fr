@@ -2,6 +2,7 @@ name: analytics-insalanfr
 services:
   telegraf:
     image: telegraf:1.33
+    restart: unless-stopped
     volumes:
       - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
       - ./volumes/prod/nginx/logs:/var/log/nginx:ro
@@ -23,6 +24,7 @@ services:
 
   influxdb:
     image: influxdb:1.8-alpine
+    restart: unless-stopped
     volumes:
       - ./volumes/prod/influxdb:/var/lib/influxdb
     environment:
@@ -39,6 +41,7 @@ services:
 
   grafana:
     image: grafana/grafana:11.5.2
+    restart: unless-stopped
     # Run as root user to prevent file permission issues
     user: "0"
     volumes:
