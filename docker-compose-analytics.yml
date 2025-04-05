@@ -19,7 +19,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.50'  # Limit to 50% of a single CPU core
+          cpus: '0.10'  # Limit to 10% of a single CPU core
           memory: '256M'  # Limit to 256MB of memory
 
   influxdb:

@@ -1,2 +1,3 @@
 https://github.com/InsaLan/backend-insalan.fr/releases/latest/download/manuel.tar.gz /srv/http/docs/backend
 https://github.com/InsaLan/langate3000/releases/latest/download/manuel.tar.gz /srv/http/docs/langate
+https://github.com/InsaLan/manuel-utilisateur-site-web/releases/latest/download/manuel.tar.gz /srv/http/docs/non_technique

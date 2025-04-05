@@ -77,7 +77,7 @@ services:
       - 5433
     networks:
       - backend
-    command: 
+    command:
     - '--logpath'
     - '/dev/null'
 
@@ -90,10 +90,10 @@ services:
       - VITE_WEBSITE_HOST=${WEBSITE_HOST}
       - VITE_SESSION_COOKIE_AGE=${SESSION_COOKIE_AGE}
     volumes:
-      - ./volumes/prod/frontend:/dist
+      - ./volumes/prod/frontend:/src/dist
     networks:
       - backend
-  
+
   nginx:
     image: nginx
     restart: unless-stopped
