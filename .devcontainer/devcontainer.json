@@ -1,0 +1,18 @@
+{
+  "name": "Insalan.fr - Backend",
+  "dockerComposeFile": "../docker-compose-beta.yml",
+  "service": "backend",
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "usernamehw.errorlens",
+        "streetsidesoftware.code-spell-checker",
+        "streetsidesoftware.code-spell-checker-french",
+        "dbaeumer.vscode-eslint",
+        "ms-python.pylint",
+        "ms-python.python"
+      ]
+    }
+  }
+}

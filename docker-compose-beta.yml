@@ -37,6 +37,7 @@ services:
     volumes:
       - ./volumes/beta/backend:/app/v1
       - ./backend:/app
+      - ./.vscode/settings.json:/app/.vscode/settings.json
     expose:
       - 8000
     networks:

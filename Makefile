@@ -35,7 +35,7 @@ clean-custom:
 
 test-back:
 	@echo "Running test for the backend"
-	docker exec infra-insalanfr-beta-backend-1 python manage.py test --parallel auto
+	docker exec infra-insalanfr-beta-backend-1 pytest
 
 lint-back:
 	@echo "Running linter for the backend"

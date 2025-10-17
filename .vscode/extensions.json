@@ -6,6 +6,7 @@
         "dbaeumer.vscode-eslint",
         "ms-python.pylint",
         "ms-python.python",
+        "ms-vscode-remote.remote-containers",
         "Vue.volar",
     ]
 }

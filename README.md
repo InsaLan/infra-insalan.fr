@@ -63,10 +63,14 @@ The dev frontend is available at `WEBSITE_HOST` and it's API at
 
 ## Tests
 
-It's important to run the tests to ensure that you didn't break anything.
+It is possible to fully integrate the backend with VSCode by using the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). This makes it possible to run and inspect tests from VSCode.
+
+To do so, simply install the recommended extension and then run the "Dev Containers: Reopen in Container" VSCode command (Ctrl Shift P). You should then see the Tests tab on the sidebar and all the Django tests in there.
+
+It is also possible to run the tests from command line:
 
 ```sh
-docker exec infra-insalanfr-beta-backend-1 python manage.py test --parallel auto
+docker exec infra-insalanfr-beta-backend-1 pytest
 ```
 
 ## Makefile
