@@ -35,9 +35,10 @@ services:
       DEV: ${DEV}
 
     volumes:
-      - ./volumes/beta/backend:/app/v1
-      - ./backend:/app
-      - ./.vscode/settings.json:/app/.vscode/settings.json
+      - ./volumes/beta/backend:/backend/v1
+      - ./backend:/backend
+      - ./.git/modules/backend-insalan.fr:/.git/modules/backend-insalan.fr
+      - ./.vscode/settings.json:/backend/.vscode/settings.json
     expose:
       - 8000
     networks:

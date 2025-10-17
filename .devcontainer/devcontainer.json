@@ -2,7 +2,7 @@
   "name": "Insalan.fr - Backend",
   "dockerComposeFile": "../docker-compose-beta.yml",
   "service": "backend",
-  "workspaceFolder": "/app",
+  "workspaceFolder": "/backend",
   "customizations": {
     "vscode": {
       "extensions": [
