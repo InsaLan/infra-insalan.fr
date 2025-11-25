@@ -1,4 +1,4 @@
-@PHONY: build-prod run-prod stop-prod run-beta run-beta-sync stop-beta clean-all clean-custom test-back lint-back lint-front
+@PHONY: build-prod run-prod stop-prod run-beta run-beta-sync stop-beta clean-all clean-custom test-back lint-back mypy lint-front
 
 build-prod:
 	@echo "Building production images"
@@ -40,6 +40,10 @@ test-back:
 lint-back:
 	@echo "Running linter for the backend"
 	docker exec infra-insalanfr-beta-backend-1 pylint ./insalan
+
+mypy:
+	@echo "Running mypy in the backend"
+	docker exec infra-insalanfr-beta-backend-1 mypy
 
 lint-front:
 	@echo "Running linter for the backend"
