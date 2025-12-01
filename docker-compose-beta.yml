@@ -1,7 +1,7 @@
 name: infra-insalanfr-beta
 services:
   backend:
-    build: 
+    build:
       context: ./backend
       dockerfile: Dockerfile.dev
     image: insalan/backend-beta
@@ -32,6 +32,7 @@ services:
       HELLOASSO_RETURN_URL: ${HELLOASSO_RETURN_URL}
       HELLOASSO_ERROR_URL: ${HELLOASSO_ERROR_URL}
       RIOT_API_KEY: ${RIOT_API_KEY}
+      FACEIT_API_KEY: ${FACEIT_API_KEY}
       DEV: ${DEV}
 
     volumes:
@@ -81,12 +82,12 @@ services:
       - 5433
     networks:
       - backend
-    command: 
+    command:
     - '--logpath'
     - '/dev/null'
 
   frontend:
-    build: 
+    build:
       context: ./frontend
       dockerfile: Dockerfile.dev
     image: insalan/frontend-beta
@@ -102,7 +103,7 @@ services:
       - "5173"
     networks:
       - backend
-    
+
   nginx:
     build:
       context: ./nginx

@@ -30,6 +30,7 @@ services:
       HELLOASSO_RETURN_URL: ${HELLOASSO_RETURN_URL}
       HELLOASSO_ERROR_URL: ${HELLOASSO_ERROR_URL}
       RIOT_API_KEY: ${RIOT_API_KEY}
+      FACEIT_API_KEY: ${FACEIT_API_KEY}
       DEV: 0
     volumes:
       - ./volumes/prod/backend:/app/v1
