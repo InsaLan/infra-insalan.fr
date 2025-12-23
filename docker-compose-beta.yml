@@ -97,6 +97,8 @@ services:
       - NODE_ENV=${FRONTEND_NODE_ENV}
       - VITE_WEBSITE_HOST=beta.${WEBSITE_HOST}
       - VITE_SESSION_COOKIE_AGE=${SESSION_COOKIE_AGE}
+      - WATCHPACK_POLLING
+      - CHOKIDAR_USEPOLLING
     volumes:
       - ./frontend:/src
     expose:

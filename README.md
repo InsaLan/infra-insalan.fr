@@ -9,13 +9,17 @@ contribution.
 
 ## Installing and running insalan.fr in local
 
+If you are on Windows, you will first need to install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) and then [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/). Otherwise, simply install [Docker Engine](https://docs.docker.com/engine/install/) on its own.
+
+Then :
+
 ```sh
 git clone git@github.com:InsaLan/infra-insalan.fr.git --recurse-submodules
 cp .env.dist .env
 chmod 0600 .env
 ```
 
-Edit your `.env` with your local settings then:
+Edit your `.env` with your local settings. For Windows frontend development, make sure to uncomment the `WATCHPACK_POLLING` and `CHOKIDAR_USEPOLLING` lines. Then:
 
 ```sh
 docker compose -f docker-compose-beta.yml up --build -d

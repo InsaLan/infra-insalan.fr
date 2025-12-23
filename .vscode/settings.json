@@ -15,4 +15,5 @@
         "css",
     ],
     "python.analysis.typeCheckingMode": "off",
+    "files.eol": "\n",
 }
