@@ -117,6 +117,7 @@ services:
       - NGINX_PORT=80
       - STATIC_ROOT=${BACKEND_STATIC_ROOT}
       - MEDIA_ROOT=${BACKEND_MEDIA_ROOT}
+      - HTTP_PROTOCOL=${PROTOCOL}
     ports:
       - "${PREPROD_NGINX_PORT}:80"
     volumes:
