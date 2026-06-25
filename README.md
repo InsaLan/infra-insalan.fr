@@ -9,7 +9,13 @@ contribution.
 
 ## Installing and running insalan.fr in local
 
-If you are on Windows, you will first need to install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) and then [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/). Otherwise, simply install [Docker Engine](https://docs.docker.com/engine/install/) on its own.
+If you are on Windows, you will first need to install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) and then [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/). On Windows, you should also disable file mode tracking as Windows doesn't even have file modes and it will just create useless diffs (idk why git doesn't do this by default) :
+
+```sh
+git config --global core.fileMode false 
+```
+
+For other platforms, simply install [Docker Engine](https://docs.docker.com/engine/install/) on its own.
 
 Then :
 
