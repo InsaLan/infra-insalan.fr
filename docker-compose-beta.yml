@@ -14,8 +14,6 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
-      MONGODB_USER: ${MONGODB_USER}
-      MONGODB_PASS: ${MONGODB_PASS}
       NGINX_PORT: ${EXTERNAL_NGINX_PORT}
       MAIL_AUTH: ${MAIL_AUTH}
       STATIC_ROOT: ${BACKEND_STATIC_ROOT}
@@ -71,20 +69,6 @@ services:
       retries: 10
     networks:
       - backend
-
-  mongo-db:
-    image: mongo
-    restart: unless-stopped
-    environment:
-        MONGO_INITDB_ROOT_USERNAME: ${DB_SUPERUSER}
-        MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
-    expose:
-      - 5433
-    networks:
-      - backend
-    command:
-    - '--logpath'
-    - '/dev/null'
 
   frontend:
     build:
